@@ -1,0 +1,1 @@
+"""AutoFabric MCP package."""

@@ -1,0 +1,1 @@
+"""AutoFabric tests package."""

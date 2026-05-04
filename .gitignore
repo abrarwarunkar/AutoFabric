@@ -1,0 +1,58 @@
+# AutoFabric — Git Ignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+
+# Keep .env.example but not .env
+!.env.example
+
+# Ignore all data
+data/
+
+# Except keep the default sample documents
+!data/sample_docs/
+data/sample_docs/*
+!data/sample_docs/ai_fundamentals.txt
+!data/sample_docs/rag_architecture.txt
+!data/sample_docs/MindfulSpace_Research_Paper.pdf
+
+# HuggingFace model cache
+.cache/
+~/.cache/huggingface/
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.coveragerc
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
