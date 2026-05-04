@@ -3,7 +3,6 @@ AutoFabric RAG — Hybrid Retriever
 Combines FAISS dense retrieval + BM25 sparse retrieval using
 Reciprocal Rank Fusion (RRF, k=60) for robust hybrid search.
 """
-import os
 import pickle
 import logging
 from pathlib import Path

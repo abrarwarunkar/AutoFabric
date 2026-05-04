@@ -6,7 +6,7 @@ any LLM call, ensuring privacy-safe operation.
 Detected entities: PERSON, EMAIL_ADDRESS, PHONE_NUMBER, CREDIT_CARD, US_SSN
 """
 import logging
-from typing import Dict, List
+from typing import Dict
 
 logger = logging.getLogger(__name__)
 

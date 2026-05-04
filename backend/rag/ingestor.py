@@ -3,7 +3,6 @@ AutoFabric RAG — Document Ingestion Pipeline
 Reads .txt and .pdf files, chunks them, embeds with sentence-transformers,
 stores in FAISS (IndexFlatL2), and saves to disk alongside a BM25 corpus.
 """
-import os
 import json
 import pickle
 import logging

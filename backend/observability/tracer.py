@@ -3,9 +3,8 @@ AutoFabric Observability — LangSmith Tracer + In-Memory Metrics
 Wraps LangSmith run lifecycle and accumulates platform-level metrics.
 """
 import logging
-import time
 from datetime import datetime, timezone
-from typing import Any, Dict, Optional
+from typing import Dict, Optional
 
 logger = logging.getLogger(__name__)
 

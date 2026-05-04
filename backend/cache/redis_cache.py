@@ -6,7 +6,7 @@ Gracefully degrades if Redis is unavailable (cache miss, no error).
 import hashlib
 import json
 import logging
-from typing import Any, Dict, Optional
+from typing import Dict, Optional
 
 logger = logging.getLogger(__name__)
 

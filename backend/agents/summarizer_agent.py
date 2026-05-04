@@ -7,7 +7,6 @@ import logging
 from typing import Dict
 
 from backend.agents.state import AgentState
-from backend.config import settings
 from backend.mcp.mcp_server import mcp_summarize
 
 logger = logging.getLogger(__name__)
