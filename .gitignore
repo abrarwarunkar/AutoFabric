@@ -20,14 +20,14 @@ env/
 !.env.example
 
 # Ignore all data
-data/
+data/*
 
 # Except keep the default sample documents
 !data/sample_docs/
 data/sample_docs/*
 !data/sample_docs/ai_fundamentals.txt
 !data/sample_docs/rag_architecture.txt
-!data/sample_docs/MindfulSpace_Research_Paper.pdf
+!data/sample_docs/agent_governance.txt
 
 # HuggingFace model cache
 .cache/

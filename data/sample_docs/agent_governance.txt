@@ -1,0 +1,61 @@
+AutoFabric Knowledge Base — AI Agent Orchestration & Governance
+
+WHAT ARE AI AGENTS?
+
+AI agents are autonomous systems that perceive their environment, make decisions, and take actions to achieve specified goals. Modern AI agents use large language models as their reasoning engine combined with access to tools (APIs, databases, code executors) to interact with the world.
+
+An AI agent typically follows a perception-reasoning-action loop:
+1. Perception: Receive input (user query, sensor data, API response)
+2. Reasoning: Use an LLM to plan next steps and select tools
+3. Action: Execute tool calls, update state, or generate output
+4. Observation: Process tool results and update reasoning context
+
+LANGGRAPH: STATEFUL AGENT ORCHESTRATION
+
+LangGraph is a framework built on top of LangChain for creating stateful, multi-actor applications with LLMs. It models agent workflows as directed graphs (StateGraphs) where each node is an agent or function, and edges define routing logic.
+
+Key LangGraph concepts:
+- StateGraph: A graph where each node reads from and writes to a shared state dictionary
+- Node: A Python function or Runnable that receives state and returns state updates
+- Edge: A directed connection between nodes, which can be conditional (routing based on state)
+- Checkpointing: LangGraph supports persistent state for long-running, multi-turn conversations
+
+SUPERVISOR AGENT PATTERN
+
+The supervisor pattern uses a central orchestrator that:
+1. Receives the initial user query
+2. Runs pre-processing (governance checks, query transformation)
+3. Routes to specialized sub-agents
+4. Collects and assembles outputs from sub-agents
+5. Produces a final, polished response
+
+This pattern is highly effective for enterprise applications requiring auditability and deterministic routing.
+
+MCP — MODEL CONTEXT PROTOCOL
+
+The Model Context Protocol (MCP) is an open standard developed by Anthropic for connecting AI models to external tools and data sources in a standardized way. MCP defines a client-server architecture where:
+- MCP Servers expose tools, resources, and prompts via a standard interface
+- MCP Clients (AI applications) connect to servers and invoke tools
+- Communication happens over stdio, HTTP/SSE, or WebSocket transports
+
+MCP enables interoperability between AI frameworks and tool providers, similar to how USB standardized device connectivity.
+
+AI GOVERNANCE AND TRUSTED AI
+
+PERSONAL IDENTIFIABLE INFORMATION (PII) PROTECTION
+PII includes any information that can identify an individual: names, email addresses, phone numbers, social security numbers, credit card numbers, and biometric data. Enterprise AI systems must detect and redact PII before sending data to external LLM APIs to comply with GDPR, CCPA, and HIPAA regulations.
+
+Microsoft Presidio is an open-source Python library for context-aware PII detection and anonymization. It uses NLP models and pattern matching to identify 40+ entity types with configurable confidence thresholds.
+
+PROMPT INJECTION DEFENSE
+Prompt injection attacks attempt to override an AI system's instructions by embedding malicious instructions in user input or retrieved documents. Defense strategies include:
+- Input validation with pattern matching against known attack signatures
+- LLM-as-classifier approach using a separate model to detect injection
+- Prompt structure with clear delimiters between system instructions and user content
+- Output monitoring to detect unexpected behavior patterns
+
+LANGSMITH OBSERVABILITY
+LangSmith is the observability platform for LangChain applications, providing run tracing, dataset management, and evaluation tools. Every LLM call, tool invocation, and chain execution is logged as a structured trace with inputs, outputs, latency, and token usage. This enables debugging, performance monitoring, and compliance auditing.
+
+HALLUCINATION DETECTION
+Hallucination in LLMs refers to generating factually incorrect or unsupported content with high confidence. RAG systems reduce but do not eliminate hallucinations. Post-generation validation using a cross-encoder or LLM-as-judge approach can score response faithfulness against retrieved context, flagging potentially hallucinated claims for human review.

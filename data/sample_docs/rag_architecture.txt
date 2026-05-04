@@ -1,0 +1,49 @@
+AutoFabric Knowledge Base — Retrieval-Augmented Generation (RAG)
+
+WHAT IS RETRIEVAL-AUGMENTED GENERATION?
+
+Retrieval-Augmented Generation (RAG) is an AI architecture that enhances large language model responses by first retrieving relevant documents from an external knowledge base before generating an answer. RAG was introduced by Meta AI researchers in 2020 and has become the dominant approach for building knowledge-grounded AI applications.
+
+RAG addresses two fundamental limitations of LLMs: (1) knowledge cutoff dates, and (2) hallucinations caused by generating text purely from parametric memory. By grounding responses in retrieved context, RAG systems produce more accurate, verifiable, and up-to-date answers.
+
+RAG PIPELINE ARCHITECTURE
+
+A typical RAG pipeline consists of the following stages:
+
+STAGE 1 — DOCUMENT INGESTION
+Documents are loaded, split into chunks (typically 256–1024 tokens with overlap), embedded using a sentence-transformer model, and stored in a vector database like FAISS, Pinecone, or Weaviate alongside their metadata.
+
+STAGE 2 — QUERY PROCESSING
+The user query is embedded using the same model used during ingestion. This produces a dense vector representation of the query.
+
+STAGE 3 — RETRIEVAL
+The query vector is used to search the vector store for the most semantically similar document chunks. Hybrid retrieval combines dense vector search (FAISS) with sparse retrieval (BM25) for improved recall.
+
+STAGE 4 — RE-RANKING
+Retrieved chunks are re-ranked using a cross-encoder model (e.g., cross-encoder/ms-marco-MiniLM-L-6-v2) that scores each (query, document) pair directly. Cross-encoders provide higher precision than bi-encoders at the cost of latency.
+
+STAGE 5 — GENERATION
+The top-k re-ranked chunks are formatted as context and provided to the LLM alongside the original query. The LLM generates an answer grounded in the retrieved context.
+
+HYBRID SEARCH WITH RECIPROCAL RANK FUSION
+
+BM25 (Best Match 25) is a probabilistic retrieval function that scores documents based on term frequency and inverse document frequency. BM25 excels at keyword matching and exact phrase retrieval.
+
+Reciprocal Rank Fusion (RRF) merges results from multiple ranked lists using the formula: score(d) = Σ 1/(k + rank(d)), where k=60 is a smoothing constant. RRF consistently outperforms weighted score combination methods without requiring parameter tuning.
+
+EVALUATION METRICS
+
+RAG systems are evaluated on:
+- Faithfulness: Does the answer stay grounded in the retrieved context?
+- Answer Relevance: Does the answer address the user query?
+- Context Precision: Are the retrieved chunks relevant to the query?
+- Context Recall: Do the retrieved chunks contain all necessary information?
+
+Tools like RAGAS provide automated evaluation of RAG pipelines using LLM-as-judge methodology.
+
+ADVANCED RAG TECHNIQUES
+
+- HyDE (Hypothetical Document Embedding): Generate a hypothetical answer, embed it, and use it for retrieval.
+- Query decomposition: Break complex queries into sub-questions for targeted retrieval.
+- Multi-hop retrieval: Iteratively retrieve to answer questions requiring reasoning chains.
+- Contextual compression: Extract only the most relevant sentences from retrieved chunks.
