@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: autofabric-backend
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: LANGCHAIN_API_KEY
+        sync: false
+      - key: LANGCHAIN_TRACING_V2
+        value: "true"
+      - key: LANGCHAIN_PROJECT
+        value: "autofabric-prod"
+      # Redis is omitted for the free tier; AutoFabric degrades gracefully.
