@@ -27,7 +27,7 @@ jobs:
         run: pip install ruff
 
       - name: Run ruff
-        run: ruff check autofabric/backend/ autofabric/frontend/ --ignore E501
+        run: ruff check backend/ frontend/ --ignore E501
 
   # ── Unit Tests ───────────────────────────────────────────────────────────────
   test:
@@ -56,7 +56,6 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        working-directory: autofabric
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
@@ -65,14 +64,12 @@ jobs:
         run: python -m spacy download en_core_web_sm
 
       - name: Create test env
-        working-directory: autofabric
         run: |
           cp .env.example .env
           echo "GROQ_API_KEY=test_key" >> .env
           echo "REDIS_URL=redis://localhost:6379" >> .env
 
       - name: Run tests
-        working-directory: autofabric
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           LANGCHAIN_API_KEY: ${{ secrets.LANGCHAIN_API_KEY }}
@@ -95,7 +92,6 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build backend image
-        working-directory: autofabric
         run: |
           docker build -t autofabric-backend:${{ github.sha }} .
 
